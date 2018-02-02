@@ -2,6 +2,7 @@ package su.elevenetc.playground.opengl
 
 import android.content.Context
 import android.opengl.GLES30
+import java.nio.FloatBuffer
 
 /**
  * Created by eugene.levenetc on 02/02/2018.
@@ -9,14 +10,17 @@ import android.opengl.GLES30
 class GLProgram(vertexResourceId: Int, fragmentResourceId: Int, context: Context) {
 
     val link: Int = GLES30.glCreateProgram()
-    val links: MutableMap<String, Int> = mutableMapOf()
+    private val links: MutableMap<String, Int> = mutableMapOf()
+    private val position: String = "position"
+    private val coordsPerVertex = 3
 
     init {
         initShaders(link, vertexResourceId, fragmentResourceId, context)
+        bindAttribute(position)
     }
 
-    fun getLink(name: String): Int {
-        return links[name]
+    fun link(name: String): Int {
+        return links[name]!!
     }
 
     fun bindAttribute(name: String) {
@@ -37,5 +41,13 @@ class GLProgram(vertexResourceId: Int, fragmentResourceId: Int, context: Context
 
     fun setFloat(name: String, data: Float) {
         setFloat(link, name, data)
+    }
+
+    fun drawVertexes(vertexBuffer: FloatBuffer) {
+
+        GLES30.glEnableVertexAttribArray(link(position))
+        GLES30.glVertexAttribPointer(link(position), coordsPerVertex, GLES30.GL_FLOAT, false, coordsPerVertex * 4, vertexBuffer)
+        GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, vertexBuffer.limit() / coordsPerVertex)
+        GLES30.glDisableVertexAttribArray(link(position))
     }
 }

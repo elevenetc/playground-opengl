@@ -43,13 +43,7 @@ class MainActivity : AppCompatActivity() {
             setRenderer(renderer)
         }
 
-        override fun onAttachedToWindow() {
-            super.onAttachedToWindow()
-
-
-        }
-
-//        public  onKeyDown(int keyCode, KeyEvent event):Boolean {
+        //        public  onKeyDown(int keyCode, KeyEvent event):Boolean {
 //            if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
 //                queueEvent(new Runnable() {
 //                    // This method will be called on the rendering
@@ -87,11 +81,11 @@ class MainActivity : AppCompatActivity() {
                     0f, 1.0f, 0.0f
             )
 
-            Matrix.multiplyMM(mvp, 0, projection, 0, view, 0);
+            Matrix.multiplyMM(mvp, 0, projection, 0, view, 0)
 
             triangle.draw(mvp)
 
-            Thread.sleep(500)
+            Thread.sleep(100)
         }
 
         override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {
