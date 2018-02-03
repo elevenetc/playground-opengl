@@ -60,7 +60,7 @@ fun loadShader(type: Int, shaderCode: String): Int {
     return shader
 }
 
-fun initVertices(coordinates:FloatArray): FloatBuffer {
+fun initVertices(coordinates: FloatArray): FloatBuffer {
     // initialize vertex byte buffer for shape coordinates
     val bb = ByteBuffer.allocateDirect(
             // (number of coordinate values * 4 bytes per float)
@@ -77,7 +77,7 @@ fun initVertices(coordinates:FloatArray): FloatBuffer {
     return vertexBuffer
 }
 
-fun initShaders(program: Int, vertexResourceId:Int, fragmentResourceId:Int, context: Context) {
+fun initShaders(program: Int, vertexResourceId: Int, fragmentResourceId: Int, context: Context) {
     val vertexShader = loadVertexShader(loadRawResource(context, vertexResourceId))
     val fragmentShader = loadFragmentShader(loadRawResource(context, fragmentResourceId))
 
@@ -86,23 +86,27 @@ fun initShaders(program: Int, vertexResourceId:Int, fragmentResourceId:Int, cont
     GLES30.glLinkProgram(program)
 }
 
-fun setV4(program: Int, name:String, data: FloatArray){
+fun setV4(program: Int, name: String, data: FloatArray) {
     GLES30.glUniform4fv(
             GLES30.glGetUniformLocation(program, name),
             1, data, 0
     )
 }
 
-fun setV4Matrix(program: Int, name:String, data: FloatArray){
+fun setV4Matrix(program: Int, name: String, data: FloatArray) {
     GLES30.glUniformMatrix4fv(
             GLES30.glGetUniformLocation(program, name),
             1, false, data, 0
     )
 }
 
-fun setFloat(program: Int, name: String, data: Float){
+fun setFloat(program: Int, name: String, data: Float) {
     GLES30.glUniform1f(
             GLES30.glGetUniformLocation(program, name),
             data
     )
+}
+
+fun coordinate(x: Float, y: Float, z: Float) {
+
 }

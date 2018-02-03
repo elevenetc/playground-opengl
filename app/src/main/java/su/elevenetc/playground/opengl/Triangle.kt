@@ -1,48 +1,48 @@
 package su.elevenetc.playground.opengl
 
 import android.content.Context
-import android.opengl.GLES30
-import java.nio.FloatBuffer
 
 
 /**
  * Created by eugene.levenetc on 02/02/2018.
  */
-class Triangle(context: Context) {
+open class Triangle(
+        context: Context,
+        vertexResourceId: Int,
+        fragmentResourceId: Int,
+        topVertex: Vertex,
+        bottomLeftVertex: Vertex,
+        bottomRightVertex: Vertex,
+        color: Color
+) : Shape() {
 
-    private lateinit var vertexBuffer: FloatBuffer
-    private lateinit var coords: FloatArray
-    var time: Float = 0f
+    private val color = toV4(color)
+    protected val program: GLProgram = GLProgram(vertexResourceId, fragmentResourceId, context)
+    private val vertexes: Vertexes = Vertexes(
+            topVertex.x, topVertex.y, topVertex.z,
+            bottomLeftVertex.x, bottomLeftVertex.y, bottomLeftVertex.z,
+            bottomRightVertex.x, bottomRightVertex.y, bottomRightVertex.z
+    )
 
-    private val color = Green
-    private val program: GLProgram = GLProgram(R.raw.vertex, R.raw.fragment, context)
+    override fun onDraw(mvp: FloatArray) {
+        program.onDrawStart()
 
-    init {
-        initVertexes()
-    }
+        beforeDraw()
 
-    fun draw(mvp: FloatArray) {
-        GLES30.glUseProgram(program.link)
+        program.setV4(uColor, color)
+        program.setV4Matrix(uMvp, mvp)
+        program.drawVertexes(vertexes.buffer)
 
-        time += 0.1f
-        program.setFloat("time", time)
-        program.setV4("vColor", color)
-        program.setV4Matrix("uMVPMatrix", mvp)
-
-        program.drawVertexes(vertexBuffer)
-
-        initVertexes()
+        afterDraw()
     }
 
     private fun initVertexes() {
+        //Log.d("loc", vertexes.buffer[1].toString())
+        //val loc = 6
+        //var v = vertexes.buffer.get(loc)
+        //v += Math.abs(Math.sin(time.toDouble())).toFloat()
 
-        coords = floatArrayOf(// in counterclockwise order:
-                0.0f, 0.822008459f, 0.0f, // top
-                -0.5f, -0.311004243f, 0.0f, // bottom left
-                0.5f, -0.311004243f, Math.abs(Math.sin(time.toDouble())).toFloat()  // bottom right
-        )
-
-        vertexBuffer = initVertices(coords)
+        //vertexes.buffer.put(loc, v)
     }
 
 

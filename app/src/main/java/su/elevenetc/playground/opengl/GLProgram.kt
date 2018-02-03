@@ -11,12 +11,11 @@ class GLProgram(vertexResourceId: Int, fragmentResourceId: Int, context: Context
 
     val link: Int = GLES30.glCreateProgram()
     private val links: MutableMap<String, Int> = mutableMapOf()
-    private val position: String = "position"
     private val coordsPerVertex = 3
 
     init {
         initShaders(link, vertexResourceId, fragmentResourceId, context)
-        bindAttribute(position)
+        bindAttribute(aPosition)
     }
 
     fun link(name: String): Int {
@@ -43,11 +42,15 @@ class GLProgram(vertexResourceId: Int, fragmentResourceId: Int, context: Context
         setFloat(link, name, data)
     }
 
+    fun onDrawStart() {
+        GLES30.glUseProgram(link)
+    }
+
     fun drawVertexes(vertexBuffer: FloatBuffer) {
 
-        GLES30.glEnableVertexAttribArray(link(position))
-        GLES30.glVertexAttribPointer(link(position), coordsPerVertex, GLES30.GL_FLOAT, false, coordsPerVertex * 4, vertexBuffer)
+        GLES30.glEnableVertexAttribArray(link(aPosition))
+        GLES30.glVertexAttribPointer(link(aPosition), coordsPerVertex, GLES30.GL_FLOAT, false, coordsPerVertex * 4, vertexBuffer)
         GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, vertexBuffer.limit() / coordsPerVertex)
-        GLES30.glDisableVertexAttribArray(link(position))
+        GLES30.glDisableVertexAttribArray(link(aPosition))
     }
 }

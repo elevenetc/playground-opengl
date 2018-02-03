@@ -42,31 +42,26 @@ class MainActivity : AppCompatActivity() {
             setEGLContextClientVersion(3)
             setRenderer(renderer)
         }
-
-        //        public  onKeyDown(int keyCode, KeyEvent event):Boolean {
-//            if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
-//                queueEvent(new Runnable() {
-//                    // This method will be called on the rendering
-//                    // thread:
-//                    public void run() {
-//                        renderer.handleDpadCenter();
-//                    }});
-//                return true;
-//            }
-//            return super.onKeyDown(keyCode, event);
-//        }
     }
 
     class Renderer(val context: Context) : GLSurfaceView.Renderer {
 
-        private lateinit var triangle: Triangle
+        private lateinit var triangle: Shape
 
         private val mvp = FloatArray(16)
         private val projection = FloatArray(16)
         private val view = FloatArray(16)
 
         override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
-            triangle = Triangle(context)
+            triangle = TimeTriangle(
+                    context,
+                    R.raw.vertex,
+                    R.raw.fragment_sin_color,
+                    Vertex(0.0f, 0.5f, 0.0f),
+                    Vertex(-0.25f, -0.0f, 0.0f),
+                    Vertex(0.25f, -0.0f, 0f),
+                    Green
+            )
             GLES30.glClearColor(1.0f, 0.0f, 0.0f, 1.0f)
         }
 
@@ -83,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
             Matrix.multiplyMM(mvp, 0, projection, 0, view, 0)
 
-            triangle.draw(mvp)
+            triangle.onDraw(mvp)
 
             Thread.sleep(100)
         }
