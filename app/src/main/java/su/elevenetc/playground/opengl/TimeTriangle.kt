@@ -9,13 +9,17 @@ class TimeTriangle(context: Context, vertexResourceId: Int, fragmentResourceId: 
         Triangle(context, vertexResourceId, fragmentResourceId, topVertex, bottomLeftVertex, bottomRightVertex, color) {
 
     var time: Float = 0f
+    var w: Int = 0
+    var h: Int = 0
 
     override fun onScreenResize(width: Int, height: Int) {
-        program.setV2(uResolution, floatArrayOf(width.toFloat(), height.toFloat()))
+        w = width
+        h = height
     }
 
     override fun beforeDraw() {
         time += 0.1f
         program.setFloat(uTime, time)
+        program.setV2(uResolution, floatArrayOf(w.toFloat(), h.toFloat()))
     }
 }
