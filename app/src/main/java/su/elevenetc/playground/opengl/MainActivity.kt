@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             triangle = TimeTriangle(
                     context,
                     R.raw.vertex_rotation,
-                    R.raw.fragment,
+                    R.raw.fragment_coord_color,
                     Vertex(0.0f, 0.5f, 0.0f),
                     Vertex(-0.25f, -0.0f, 0.0f),
                     Vertex(0.25f, -0.0f, 0f),
