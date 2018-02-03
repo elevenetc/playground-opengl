@@ -55,14 +55,14 @@ class MainActivity : AppCompatActivity() {
         override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
             triangle = TimeTriangle(
                     context,
-                    R.raw.vertex,
-                    R.raw.fragment_sin_color,
+                    R.raw.vertex_rotation,
+                    R.raw.fragment,
                     Vertex(0.0f, 0.5f, 0.0f),
                     Vertex(-0.25f, -0.0f, 0.0f),
                     Vertex(0.25f, -0.0f, 0f),
-                    Green
+                    White
             )
-            GLES30.glClearColor(1.0f, 0.0f, 0.0f, 1.0f)
+            GLES30.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
         }
 
         override fun onDrawFrame(unused: GL10) {
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
             triangle.onDraw(mvp)
 
-            Thread.sleep(100)
+            //Thread.sleep(100)
         }
 
         override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {
