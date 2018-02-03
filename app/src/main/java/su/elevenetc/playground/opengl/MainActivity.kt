@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity() {
         override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
             triangle = TimeTriangle(
                     context,
-                    R.raw.vertex,
-                    R.raw.fragment_running_sin,
+                    R.raw.vertex_vertical_scale,
+                    R.raw.fragment,
                     Vertex(0.0f, 0.5f, 0.0f),
                     Vertex(-0.25f, -0.0f, 0.0f),
                     Vertex(0.25f, -0.0f, 0f),
