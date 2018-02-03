@@ -30,6 +30,10 @@ class GLProgram(vertexResourceId: Int, fragmentResourceId: Int, context: Context
         links[name] = GLES30.glGetUniformLocation(link, name)
     }
 
+    fun setV2(name: String, data: FloatArray) {
+        setV2(link, name, data)
+    }
+
     fun setV4(name: String, data: FloatArray) {
         setV4(link, name, data)
     }

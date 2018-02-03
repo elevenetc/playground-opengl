@@ -5,6 +5,10 @@ package su.elevenetc.playground.opengl
  */
 open class Shape {
 
+    open fun onScreenResize(width: Int, height: Int) {
+
+    }
+
     open fun beforeDraw() {
 
     }

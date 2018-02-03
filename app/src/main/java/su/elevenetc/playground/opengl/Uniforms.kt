@@ -6,3 +6,4 @@ package su.elevenetc.playground.opengl
 const val uTime = "uTime"
 const val uColor = "uColor"
 const val uMvp = "uMvp"
+const val uResolution = "uResolution"

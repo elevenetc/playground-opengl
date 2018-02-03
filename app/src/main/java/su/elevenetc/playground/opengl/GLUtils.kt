@@ -86,6 +86,13 @@ fun initShaders(program: Int, vertexResourceId: Int, fragmentResourceId: Int, co
     GLES30.glLinkProgram(program)
 }
 
+fun setV2(program: Int, name: String, data: FloatArray) {
+    GLES30.glUniform2fv(
+            GLES30.glGetUniformLocation(program, name),
+            1, data, 0
+    )
+}
+
 fun setV4(program: Int, name: String, data: FloatArray) {
     GLES30.glUniform4fv(
             GLES30.glGetUniformLocation(program, name),

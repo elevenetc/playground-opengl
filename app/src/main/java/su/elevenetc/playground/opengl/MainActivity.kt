@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity() {
         override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
             triangle = TimeTriangle(
                     context,
-                    R.raw.vertex_rotation,
-                    R.raw.fragment_coord_color,
+                    R.raw.vertex,
+                    R.raw.fragment_running_sin,
                     Vertex(0.0f, 0.5f, 0.0f),
                     Vertex(-0.25f, -0.0f, 0.0f),
                     Vertex(0.25f, -0.0f, 0f),
@@ -80,10 +80,11 @@ class MainActivity : AppCompatActivity() {
 
             triangle.onDraw(mvp)
 
-            //Thread.sleep(100)
+            Thread.sleep(100)
         }
 
         override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {
+
             GLES30.glViewport(0, 0, width, height)
             val ratio: Float = (width.toFloat() / height.toFloat())
             Matrix.frustumM(
@@ -93,6 +94,8 @@ class MainActivity : AppCompatActivity() {
                     -1f, 1f,
                     3f, 7f
             )
+
+            triangle.onScreenResize(width, height)
         }
 
 
