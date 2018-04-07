@@ -1,6 +1,7 @@
 package su.elevenetc.playground.opengl
 
 import android.content.Context
+import android.graphics.PixelFormat
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
@@ -39,8 +40,15 @@ class MainActivity : AppCompatActivity() {
         private var renderer: MainActivity.Renderer = Renderer(context)
 
         init {
+            setTransparentBackground()
             setEGLContextClientVersion(3)
             setRenderer(renderer)
+        }
+
+        private fun setTransparentBackground() {
+            setZOrderOnTop(true)
+            setEGLConfigChooser(8, 8, 8, 8, 16, 0)
+            holder.setFormat(PixelFormat.RGBA_8888)
         }
     }
 
@@ -55,14 +63,14 @@ class MainActivity : AppCompatActivity() {
         override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
             triangle = TimeTriangle(
                     context,
-                    R.raw.vertex_vertical_scale,
+                    R.raw.vertex_rotation,
                     R.raw.fragment,
                     Vertex(0.0f, 0.5f, 0.0f),
                     Vertex(-0.25f, -0.0f, 0.0f),
                     Vertex(0.25f, -0.0f, 0f),
                     White
             )
-            GLES30.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
+            //GLES30.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
         }
 
         override fun onDrawFrame(unused: GL10) {
