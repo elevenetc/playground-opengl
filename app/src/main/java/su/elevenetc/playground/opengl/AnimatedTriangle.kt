@@ -1,11 +1,14 @@
 package su.elevenetc.playground.opengl
 
 import android.content.Context
+import su.elevenetc.playground.opengl.uNames.uResolution
+import su.elevenetc.playground.opengl.uNames.uTime
 
 /**
- * Created by eugene.levenetc on 03/02/2018.
+ * Updates uTime uniform
  */
-class TimeTriangle(context: Context, vertexResourceId: Int, fragmentResourceId: Int, topVertex: Vertex, bottomLeftVertex: Vertex, bottomRightVertex: Vertex, color: Color) :
+class AnimatedTriangle(
+        context: Context, vertexResourceId: Int, fragmentResourceId: Int, topVertex: Vertex, bottomLeftVertex: Vertex, bottomRightVertex: Vertex, color: Color) :
         Triangle(context, vertexResourceId, fragmentResourceId, topVertex, bottomLeftVertex, bottomRightVertex, color) {
 
     var time: Float = 0f

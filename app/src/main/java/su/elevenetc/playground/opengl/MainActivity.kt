@@ -1,18 +1,10 @@
 package su.elevenetc.playground.opengl
 
-import android.content.Context
-import android.graphics.PixelFormat
-import android.opengl.GLES30
-import android.opengl.GLSurfaceView
-import android.opengl.Matrix
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
-import su.elevenetc.playground.opengl.MainActivity.Renderer
-import javax.microedition.khronos.egl.EGLConfig
-import javax.microedition.khronos.opengles.GL10
+import android.view.View
+import android.widget.SeekBar
+import android.widget.TextView
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,91 +13,86 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val ref: Context = this
+        val rootContainer = findViewById<View>(R.id.root_container)
 
-        val rootContainer = findViewById<ViewGroup>(R.id.root_container)
+        val seekEyeX = rootContainer.findViewById<SeekBar>(R.id.seek_eye_x)
+        val seekEyeY = rootContainer.findViewById<SeekBar>(R.id.seek_eye_y)
+        val seekEyeZ = rootContainer.findViewById<SeekBar>(R.id.seek_eye_z)
 
-        rootContainer.addView(MainGLSurfaceView(this))
+        val valueEyeX = rootContainer.findViewById<TextView>(R.id.value_eye_x)
+        val valueEyeY = rootContainer.findViewById<TextView>(R.id.value_eye_y)
+        val valueEyeZ = rootContainer.findViewById<TextView>(R.id.value_eye_z)
 
-        val supportedOpenGL = supportedOpenGL(this)
+        val surfaceView = findViewById<MainGLSurfaceView>(R.id.surface_view)
 
+        AxisController(
+                seekEyeX, seekEyeY, seekEyeZ,
+                AxisController.SeekData(-10, 10, 0, 100f),
+                AxisController.SeekData(-10, 10, 0, 100f),
+                AxisController.SeekData(-10, 10, -6, 100f),
+                {
+                    valueEyeX.setText(it.toString())
+                    surfaceView.renderer.eyeValue.x = it
+                },
+                {
+                    valueEyeY.setText(it.toString())
+                    surfaceView.renderer.eyeValue.y = it
+                },
+                {
+                    valueEyeZ.setText(it.toString())
+                    surfaceView.renderer.eyeValue.z = it
+                }
+        )
 
-        findViewById<Button>(R.id.btn_z).setOnClickListener {
-            Toast.makeText(ref, "sss!", Toast.LENGTH_SHORT).show()
-        }
+        //val ref: Context = this
+        //val rootContainer = findViewById<ViewGroup>(R.id.root_container)
+        //rootContainer.addView(MainGLSurfaceView(this))
+        //val supportedOpenGL = supportedOpenGL(this)
     }
 
-    class MainGLSurfaceView(context: Context) : GLSurfaceView(context) {
-
-        private var renderer: MainActivity.Renderer = Renderer(context)
+    class AxisController(
+            val seekX: SeekBar,
+            val seekY: SeekBar,
+            val seekZ: SeekBar,
+            val dataX: SeekData,
+            val dataY: SeekData,
+            val dataZ: SeekData,
+            val handlerX: (value: Float) -> Unit,
+            val handlerY: (value: Float) -> Unit,
+            val handlerZ: (value: Float) -> Unit
+    ) {
 
         init {
-            setTransparentBackground()
-            setEGLContextClientVersion(3)
-            setRenderer(renderer)
+            initBar(seekX, dataX, handlerX)
+            initBar(seekY, dataY, handlerY)
+            initBar(seekZ, dataZ, handlerZ)
         }
 
-        private fun setTransparentBackground() {
-            setZOrderOnTop(true)
-            setEGLConfigChooser(8, 8, 8, 8, 16, 0)
-            holder.setFormat(PixelFormat.RGBA_8888)
+        private fun initBar(bar: SeekBar, data: SeekData, handler: (value: Float) -> Unit) {
+            bar.min = data.min * data.mult.toInt()
+            bar.max = data.max * data.mult.toInt()
+            bar.setProgress(data.current, false)
+
+            handler(data.current.toFloat())
+
+            bar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+                }
+
+                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                    handler(progress / data.mult)
+                }
+
+            })
         }
+
+        class SeekData(val min: Int, val max: Int, var current: Int, val mult: Float)
     }
 
-    class Renderer(val context: Context) : GLSurfaceView.Renderer {
 
-        private lateinit var triangle: Shape
-
-        private val mvp = FloatArray(16)
-        private val projection = FloatArray(16)
-        private val view = FloatArray(16)
-
-        override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
-            triangle = TimeTriangle(
-                    context,
-                    R.raw.vertex_rotation,
-                    R.raw.fragment,
-                    Vertex(0.0f, 0.5f, 0.0f),
-                    Vertex(-0.25f, -0.0f, 0.0f),
-                    Vertex(0.25f, -0.0f, 0f),
-                    White
-            )
-            //GLES30.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
-        }
-
-        override fun onDrawFrame(unused: GL10) {
-            GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT)
-
-            Matrix.setLookAtM(
-                    view,
-                    0,
-                    0f, 0f, -3f,
-                    0f, 0f, 0f,
-                    0f, 1.0f, 0.0f
-            )
-
-            Matrix.multiplyMM(mvp, 0, projection, 0, view, 0)
-
-            triangle.onDraw(mvp)
-
-            Thread.sleep(100)
-        }
-
-        override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {
-
-            GLES30.glViewport(0, 0, width, height)
-            val ratio: Float = (width.toFloat() / height.toFloat())
-            Matrix.frustumM(
-                    projection,
-                    0,
-                    -ratio, ratio,
-                    -1f, 1f,
-                    3f, 7f
-            )
-
-            triangle.onScreenResize(width, height)
-        }
-
-
-    }
 }

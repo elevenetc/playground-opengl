@@ -1,6 +1,8 @@
 package su.elevenetc.playground.opengl
 
 import android.content.Context
+import su.elevenetc.playground.opengl.uNames.uColor
+import su.elevenetc.playground.opengl.uNames.uMvp
 
 
 /**
