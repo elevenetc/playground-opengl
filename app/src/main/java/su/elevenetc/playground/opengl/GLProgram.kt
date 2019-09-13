@@ -7,7 +7,11 @@ import java.nio.FloatBuffer
 /**
  * Created by eugene.levenetc on 02/02/2018.
  */
-class GLProgram(vertexResourceId: Int, fragmentResourceId: Int, context: Context) {
+class GLProgram(
+        vertexResourceId: Int,
+        fragmentResourceId: Int,
+        context: Context,
+        val mode:Int = GLES30.GL_TRIANGLES) {
 
     val link: Int = GLES30.glCreateProgram()
     private val links: MutableMap<String, Int> = mutableMapOf()
@@ -54,7 +58,7 @@ class GLProgram(vertexResourceId: Int, fragmentResourceId: Int, context: Context
 
         GLES30.glEnableVertexAttribArray(link(aPosition))
         GLES30.glVertexAttribPointer(link(aPosition), coordsPerVertex, GLES30.GL_FLOAT, false, coordsPerVertex * 4, vertexBuffer)
-        GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, vertexBuffer.limit() / coordsPerVertex)
+        GLES30.glDrawArrays(mode, 0, vertexBuffer.limit() / coordsPerVertex)
         GLES30.glDisableVertexAttribArray(link(aPosition))
     }
 }

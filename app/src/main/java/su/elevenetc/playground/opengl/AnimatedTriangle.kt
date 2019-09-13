@@ -1,6 +1,7 @@
 package su.elevenetc.playground.opengl
 
 import android.content.Context
+import su.elevenetc.playground.opengl.drawables.Triangle
 import su.elevenetc.playground.opengl.uNames.uResolution
 import su.elevenetc.playground.opengl.uNames.uTime
 

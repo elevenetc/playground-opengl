@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.PixelFormat
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
+import su.elevenetc.playground.opengl.drawables.Line
+import su.elevenetc.playground.opengl.drawables.Triangle
 
 class MainGLSurfaceView : GLSurfaceView {
 
@@ -13,15 +15,59 @@ class MainGLSurfaceView : GLSurfaceView {
 
     val renderer: Renderer2D = Renderer2D(context).apply {
         addShape {
-
             Triangle(
                     context,
-                    R.raw.vertex,
-                    R.raw.shader_fragment_color,
+                    R.raw.shader_vertex_basic,
+                    R.raw.shader_fragment_basic,
                     Vertex(0.0f, 1f, 0.0f),
                     Vertex(-1f, -0.0f, 0.0f),
                     Vertex(1f, -0.0f, 0f),
                     Green
+            )
+        }
+
+//        addShape {
+//            Triangle(
+//                    context,
+//                    R.raw.vertex,
+//                    R.raw.shader_fragment_color,
+//                    Vertex(0.0f, 1f, 1.0f),
+//                    Vertex(-1f, -0.0f, 1.0f),
+//                    Vertex(1f, -0.0f, 1.0f),
+//                    Red
+//            )
+//        }
+
+        addShape {
+            Line(
+                    Vertex(0.0f, 0f, 0.0f),
+                    Vertex(0.0f, 10f, 0.0f),
+                    R.raw.shader_vertex_basic,
+                    R.raw.shader_fragment_basic,
+                    Red,
+                    context
+            )
+        }
+
+        addShape {
+            Line(
+                    Vertex(0.0f, 0f, 0.0f),
+                    Vertex(10.0f, 0f, 0.0f),
+                    R.raw.shader_vertex_basic,
+                    R.raw.shader_fragment_basic,
+                    Red,
+                    context
+            )
+        }
+
+        addShape {
+            Line(
+                    Vertex(0.0f, 0f, 0.0f),
+                    Vertex(0.0f, 0f, 10.0f),
+                    R.raw.shader_vertex_basic,
+                    R.raw.shader_fragment_basic,
+                    Red,
+                    context
             )
         }
     }

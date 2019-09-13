@@ -4,6 +4,7 @@ import android.content.Context
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
+import su.elevenetc.playground.opengl.drawables.Drawable
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
@@ -15,11 +16,11 @@ class Renderer2D(val context: Context) : GLSurfaceView.Renderer {
     private val projection = FloatArray(16)
     private val view = FloatArray(16)
 
-    private val shapes = mutableListOf<Shape>()
-    private val shapesFactories = mutableListOf<() -> Shape>()
+    private val shapes = mutableListOf<Drawable>()
+    private val shapesFactories = mutableListOf<() -> Drawable>()
 
-    fun addShape(shape: () -> Shape) {
-        shapesFactories.add(shape)
+    fun addShape(drawable: () -> Drawable) {
+        shapesFactories.add(drawable)
     }
 
     override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
@@ -59,7 +60,7 @@ class Renderer2D(val context: Context) : GLSurfaceView.Renderer {
                 0,
                 -ratio, ratio,
                 -1f, 1f,
-                0.1f, 10f
+                0.3f, 10f
         )
 
         shapes.forEach {
