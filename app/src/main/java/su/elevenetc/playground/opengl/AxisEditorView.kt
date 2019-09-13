@@ -71,9 +71,9 @@ class AxisEditorView(context: Context?, attrs: AttributeSet?) : LinearLayout(con
         }
 
         private fun initBar(bar: SeekBar, data: SeekData, handler: (value: Float) -> Unit) {
-            bar.min = data.min * data.mult.toInt()
-            bar.max = data.max * data.mult.toInt()
-            bar.setProgress(data.current, false)
+            bar.min = (data.min * 10).toInt()
+            bar.max = (data.max * 10).toInt()
+            bar.setProgress((data.current * 10).toInt(), false)
 
             handler(data.current.toFloat())
 
@@ -87,12 +87,12 @@ class AxisEditorView(context: Context?, attrs: AttributeSet?) : LinearLayout(con
                 }
 
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    handler(progress / data.mult)
+                    handler(progress / 10f)
                 }
 
             })
         }
 
-        class SeekData(val min: Int, val max: Int, var current: Int, val mult: Float)
+        class SeekData(val min: Float, val max: Float, var current: Float)
     }
 }
