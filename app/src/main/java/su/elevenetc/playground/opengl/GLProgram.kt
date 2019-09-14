@@ -8,9 +8,8 @@ import java.nio.FloatBuffer
  * Created by eugene.levenetc on 02/02/2018.
  */
 class GLProgram(
-        vertexResourceId: Int,
-        fragmentResourceId: Int,
-        context: Context,
+        val vertexResourceId: Int,
+        val fragmentResourceId: Int,
         val mode:Int = GLES30.GL_TRIANGLES) {
 
     val link: Int = GLES30.glCreateProgram()
@@ -18,6 +17,10 @@ class GLProgram(
     private val coordsPerVertex = 3
 
     init {
+
+    }
+
+    fun init(context: Context){
         initShaders(link, vertexResourceId, fragmentResourceId, context)
         bindAttribute(aPosition)
     }

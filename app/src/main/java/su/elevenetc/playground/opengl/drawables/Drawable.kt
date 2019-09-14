@@ -12,12 +12,11 @@ open class Drawable(
         val color: Color,
         val vertexResourceId: Int,
         val fragmentResourceId: Int,
-        context: Context,
         val mode: Int = GLES30.GL_TRIANGLES
 ) {
 
     private val arrayColor = toV4(color)
-    protected val program = GLProgram(vertexResourceId, fragmentResourceId, context, mode)
+    protected val program = GLProgram(vertexResourceId, fragmentResourceId, mode)
 
     open fun onScreenResize(width: Int, height: Int) {
 
@@ -41,5 +40,9 @@ open class Drawable(
 
     open fun afterDraw() {
 
+    }
+
+    fun init(context: Context) {
+        program.init(context)
     }
 }

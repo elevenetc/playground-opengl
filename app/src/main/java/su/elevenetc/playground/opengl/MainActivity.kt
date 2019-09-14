@@ -16,9 +16,9 @@ class MainActivity : AppCompatActivity() {
 
         eyeEditor.setData(
                 "Eye",
-                AxisEditorView.AxisController.SeekData(-5f, 5f, -.4f),
-                AxisEditorView.AxisController.SeekData(-5f, 5f, -.4f),
-                AxisEditorView.AxisController.SeekData(-5f, 5f, -.4f),
+                AxisEditorView.AxisController.SeekData(-5f, 5f, 2.4f),
+                AxisEditorView.AxisController.SeekData(-5f, 5f, 2.4f),
+                AxisEditorView.AxisController.SeekData(-5f, 5f, 2.4f),
                 {
                     surfaceView.renderer.eyeValue.x = it
                 },

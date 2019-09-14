@@ -27,7 +27,9 @@ class Renderer2D(val context: Context) : GLSurfaceView.Renderer {
         //GLES30.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
 
         shapesFactories.forEach {
-            shapes.add(it())
+            val s = it()
+            s.init(context)
+            shapes.add(s)
         }
     }
 

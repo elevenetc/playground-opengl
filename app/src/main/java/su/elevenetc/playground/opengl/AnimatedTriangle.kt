@@ -10,7 +10,7 @@ import su.elevenetc.playground.opengl.uNames.uTime
  */
 class AnimatedTriangle(
         context: Context, vertexResourceId: Int, fragmentResourceId: Int, topVertex: Vertex, bottomLeftVertex: Vertex, bottomRightVertex: Vertex, color: Color) :
-        Triangle(context, vertexResourceId, fragmentResourceId, topVertex, bottomLeftVertex, bottomRightVertex, color) {
+        Triangle(topVertex, bottomLeftVertex, bottomRightVertex, color, vertexResourceId, fragmentResourceId) {
 
     var time: Float = 0f
     var w: Int = 0
