@@ -5,6 +5,7 @@ import android.graphics.PixelFormat
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
 import su.elevenetc.playground.opengl.drawables.Line
+import su.elevenetc.playground.opengl.drawables.Plane
 
 class MainGLSurfaceView : GLSurfaceView {
 
@@ -29,21 +30,34 @@ class MainGLSurfaceView : GLSurfaceView {
         addShape {
             Line(
                     Vertex(0.0f, 0f, 0.0f),
-                    Vertex(0.0f, 10f, 0.0f)
+                    Vertex(0.0f, 10f, 0.0f),
+                    color = Color.Red
             )
         }
 
         addShape {
             Line(
                     Vertex(0.0f, 0f, 0.0f),
-                    Vertex(10.0f, 0f, 0.0f)
+                    Vertex(10.0f, 0f, 0.0f),
+                    color = Color.Green
             )
         }
 
         addShape {
             Line(
                     Vertex(0.0f, 0f, 0.0f),
-                    Vertex(0.0f, 0f, 10.0f)
+                    Vertex(0.0f, 0f, 10.0f),
+                    color = Color.Blue
+            )
+        }
+
+
+        addShape {
+            Plane(
+                    Vertex(0f, 0f, 0f),
+                    Vertex(1f, 0f, 0f),
+                    Vertex(1f, 1f, 0f),
+                    Vertex(0f, 1f, 0f)
             )
         }
     }
@@ -53,7 +67,6 @@ class MainGLSurfaceView : GLSurfaceView {
         setEGLContextClientVersion(3)
         setRenderer(renderer)
     }
-
 
     private fun setTransparentBackground() {
         setZOrderOnTop(true)

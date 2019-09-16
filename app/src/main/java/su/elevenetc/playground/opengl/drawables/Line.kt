@@ -2,6 +2,7 @@ package su.elevenetc.playground.opengl.drawables
 
 import android.opengl.GLES30
 import su.elevenetc.playground.opengl.*
+import su.elevenetc.playground.opengl.Color.Companion.Red
 
 class Line(
         vertexA: Vertex,

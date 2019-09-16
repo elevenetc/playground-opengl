@@ -16,17 +16,13 @@ class GLProgram(
     private val links: MutableMap<String, Int> = mutableMapOf()
     private val coordsPerVertex = 3
 
-    init {
-
-    }
-
     fun init(context: Context){
         initShaders(link, vertexResourceId, fragmentResourceId, context)
         bindAttribute(aPosition)
     }
 
-    fun link(name: String): Int {
-        return links[name]!!
+    private fun linkTo(attribute: String): Int {
+        return links[attribute]!!
     }
 
     fun bindAttribute(name: String) {
@@ -59,9 +55,11 @@ class GLProgram(
 
     fun drawVertexes(vertexBuffer: FloatBuffer) {
 
-        GLES30.glEnableVertexAttribArray(link(aPosition))
-        GLES30.glVertexAttribPointer(link(aPosition), coordsPerVertex, GLES30.GL_FLOAT, false, coordsPerVertex * 4, vertexBuffer)
+        val aPositionLink = linkTo(aPosition)
+
+        GLES30.glEnableVertexAttribArray(aPositionLink)
+        GLES30.glVertexAttribPointer(aPositionLink, coordsPerVertex, GLES30.GL_FLOAT, false, coordsPerVertex * 4, vertexBuffer)
         GLES30.glDrawArrays(mode, 0, vertexBuffer.limit() / coordsPerVertex)
-        GLES30.glDisableVertexAttribArray(link(aPosition))
+        GLES30.glDisableVertexAttribArray(aPositionLink)
     }
 }
