@@ -5,7 +5,9 @@ import android.graphics.PixelFormat
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
 import su.elevenetc.playground.opengl.drawables.Line
-import su.elevenetc.playground.opengl.drawables.Plane
+import su.elevenetc.playground.opengl.drawables.PlaneUnitXY
+import su.elevenetc.playground.opengl.drawables.PlaneUnitXZ
+import su.elevenetc.playground.opengl.drawables.PlaneUnitYZ
 
 class MainGLSurfaceView : GLSurfaceView {
 
@@ -27,6 +29,7 @@ class MainGLSurfaceView : GLSurfaceView {
 //            )
 //        }
 
+        //Y
         addShape {
             Line(
                     Vertex(0.0f, 0f, 0.0f),
@@ -35,6 +38,7 @@ class MainGLSurfaceView : GLSurfaceView {
             )
         }
 
+        //X
         addShape {
             Line(
                     Vertex(0.0f, 0f, 0.0f),
@@ -43,6 +47,7 @@ class MainGLSurfaceView : GLSurfaceView {
             )
         }
 
+        //Z
         addShape {
             Line(
                     Vertex(0.0f, 0f, 0.0f),
@@ -53,13 +58,44 @@ class MainGLSurfaceView : GLSurfaceView {
 
 
         addShape {
-            Plane(
-                    Vertex(0f, 0f, 0f),
-                    Vertex(1f, 0f, 0f),
-                    Vertex(1f, 1f, 0f),
-                    Vertex(0f, 1f, 0f)
-            )
+            PlaneUnitXY(Color.Green)
         }
+
+        addShape {
+            PlaneUnitXZ(Color.DarkBlue)
+        }
+
+        addShape {
+            PlaneUnitYZ(Color.Sky)
+        }
+
+
+//        addShape {
+//            Plane(
+//                    Vertex(0f, 0f, 0f),
+//                    Vertex(0f, 1f, 0f),
+//                    Vertex(1f, 1f, 0f),
+//                    Vertex(1f, 0f, 0f)
+//            )
+//        }
+//
+//        addShape {
+//            Plane(
+//                    Vertex(0f, 0f, 0f),
+//                    Vertex(0f, 1f, 0f),
+//                    Vertex(0f, 1f, 1f),
+//                    Vertex(0f, 0f, 1f)
+//            )
+//        }
+//
+//        addShape {
+//            Plane(
+//                    Vertex(0f, 0f, 0f),
+//                    Vertex(1f, 0f, 0f),
+//                    Vertex(1f, 0f, 1f),
+//                    Vertex(0f, 0f, 1f)
+//            )
+//        }
     }
 
     init {

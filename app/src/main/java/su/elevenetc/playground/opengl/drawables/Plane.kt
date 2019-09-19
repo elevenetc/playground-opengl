@@ -1,32 +1,59 @@
 package su.elevenetc.playground.opengl.drawables
 
 import android.opengl.GLES30
-import su.elevenetc.playground.opengl.*
+import su.elevenetc.playground.opengl.Color
 import su.elevenetc.playground.opengl.Color.Companion.Green
+import su.elevenetc.playground.opengl.R
+import su.elevenetc.playground.opengl.Vertex
+import su.elevenetc.playground.opengl.Vertexes
 
-class Plane(
-        topLeft: Vertex,
-        topRight: Vertex,
-        bottomLeft: Vertex,
-        bottomRight: Vertex,
+/**
+ * Clockwise order
+ */
+open class Plane(
+        leftBottom: Vertex,
+        leftTop: Vertex,
+        rightTop: Vertex,
+        rightBottom: Vertex,
         color: Color = Green,
         vertexResourceId: Int = R.raw.shader_vertex_basic,
-        fragmentResourceId: Int =R.raw.shader_fragment_basic,
+        fragmentResourceId: Int = R.raw.shader_fragment_basic,
         mode: Int = GLES30.GL_TRIANGLES
-) : Drawable(toTriangles(topLeft, topRight, bottomLeft, bottomRight), color, vertexResourceId, fragmentResourceId, mode) {
+) : Drawable(toTriangles(leftBottom, leftTop, rightTop, rightBottom), color, vertexResourceId, fragmentResourceId, mode) {
     companion object {
-        fun toTriangles(topLeft: Vertex,
-                        topRight: Vertex,
-                        bottomLeft: Vertex,
-                        bottomRight: Vertex): Vertexes {
+        private fun toTriangles(a: Vertex,
+                                b: Vertex,
+                                c: Vertex,
+                                d: Vertex): Vertexes {
             return Vertexes(
-                    topLeft.x, topLeft.y, topLeft.z,
-                    topRight.x, topRight.y, topRight.z,
-                    bottomLeft.x, bottomLeft.y, bottomLeft.z,
+
+                    //      y
+                    //      |
+                    //      |
+                    //     / \
+                    //  z /   \ x
+                    //
+
+                    //x   y   z
+                    //
+                    //1 (top)
+                    d.x, d.y, d.z,
+                    b.x, b.y, b.z,
+                    c.x, c.y, c.z,
+
+                    //2 (bottom)
+                    d.x, d.y, d.z,
+                    b.x, b.y, b.z,
+                    a.x, a.y, a.z
+
+//                    //x   y   z
+//                    1f, 0f, 0f,//leftBottom
+//                    0f, 1f, 0f,//leftTop
+//                    1f, 1f, 0f,
 //
-                    topRight.x, topRight.y, topRight.z,
-                    bottomRight.x, bottomRight.y, bottomRight.z,
-                    bottomLeft.x, bottomLeft.y, bottomLeft.z
+//                    1f, 0f, 0f,//leftBottom
+//                    0f, 1f, 0f,//leftTop
+//                    0f, 0f, 0f
             )
         }
     }
