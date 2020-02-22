@@ -29,21 +29,14 @@ class MainGLSurfaceView : GLSurfaceView {
 //            )
 //        }
 
+
+
         //Y
         addShape {
             Line(
                     Vertex(0.0f, 0f, 0.0f),
                     Vertex(0.0f, 10f, 0.0f),
                     color = Color.Red
-            )
-        }
-
-        //X
-        addShape {
-            Line(
-                    Vertex(0.0f, 0f, 0.0f),
-                    Vertex(10.0f, 0f, 0.0f),
-                    color = Color.Green
             )
         }
 
@@ -56,9 +49,13 @@ class MainGLSurfaceView : GLSurfaceView {
             )
         }
 
-
+        //X
         addShape {
-            PlaneUnitXY(Color.Green)
+            Line(
+                    Vertex(0.0f, 0f, 0.0f),
+                    Vertex(10.0f, 0f, 0.0f),
+                    color = Color.Green
+            )
         }
 
         addShape {
@@ -67,6 +64,10 @@ class MainGLSurfaceView : GLSurfaceView {
 
         addShape {
             PlaneUnitYZ(Color.Sky)
+        }
+
+        addShape {
+            PlaneUnitXY(Color.Green)
         }
 
 

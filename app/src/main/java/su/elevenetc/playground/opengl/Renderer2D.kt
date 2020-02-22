@@ -34,7 +34,9 @@ class Renderer2D(val context: Context) : GLSurfaceView.Renderer {
     }
 
     override fun onDrawFrame(unused: GL10) {
-        GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT)
+        GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT or GLES30.GL_DEPTH_BUFFER_BIT)
+        GLES30.glEnable(GLES30.GL_DEPTH_TEST)
+        //GLES30.glEnable(GLES30.GL_CULL_FACE);
 
         Matrix.setLookAtM(
                 view,
