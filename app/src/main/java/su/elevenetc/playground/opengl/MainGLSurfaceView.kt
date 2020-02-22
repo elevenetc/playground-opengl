@@ -4,10 +4,7 @@ import android.content.Context
 import android.graphics.PixelFormat
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
-import su.elevenetc.playground.opengl.drawables.Line
-import su.elevenetc.playground.opengl.drawables.PlaneUnitXY
-import su.elevenetc.playground.opengl.drawables.PlaneUnitXZ
-import su.elevenetc.playground.opengl.drawables.PlaneUnitYZ
+import su.elevenetc.playground.opengl.drawables.*
 
 class MainGLSurfaceView : GLSurfaceView {
 
@@ -28,7 +25,6 @@ class MainGLSurfaceView : GLSurfaceView {
 //                    Red
 //            )
 //        }
-
 
 
         //Y
@@ -58,17 +54,29 @@ class MainGLSurfaceView : GLSurfaceView {
             )
         }
 
-        addShape {
-            PlaneUnitXZ(Color.DarkBlue)
-        }
 
         addShape {
-            PlaneUnitYZ(Color.Sky)
+            Polygon(
+                    listOf(
+                            PlaneUnitXZ(Color.Red),
+                            PlaneUnitYZ(Color.Green),
+                            PlaneUnitXY(Color.Blue)
+                    ),
+                    Color.Red
+            )
         }
 
-        addShape {
-            PlaneUnitXY(Color.Green)
-        }
+//        addShape {
+//            PlaneUnitXZ(Color.Red)
+//        }
+//
+//        addShape {
+//            PlaneUnitYZ(Color.Green)
+//        }
+//
+//        addShape {
+//            PlaneUnitXY(Color.Blue)
+//        }
 
 
 //        addShape {

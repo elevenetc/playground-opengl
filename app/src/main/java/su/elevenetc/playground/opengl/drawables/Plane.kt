@@ -36,12 +36,13 @@ open class Plane(
 
                     //x   y   z
                     //
-                    //1 (top)
+                    //1 (top triangle)
                     d.x, d.y, d.z,
                     b.x, b.y, b.z,
                     c.x, c.y, c.z,
 
-                    //2 (bottom)
+                    //2 (bottom triangle)
+
                     d.x, d.y, d.z,
                     b.x, b.y, b.z,
                     a.x, a.y, a.z

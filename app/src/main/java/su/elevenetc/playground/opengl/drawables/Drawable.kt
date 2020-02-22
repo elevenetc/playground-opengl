@@ -33,7 +33,7 @@ open class Drawable(
 
         program.setV4(uNames.uColor, arrayColor)
         program.setV4Matrix(uNames.uMvp, mvp)
-        program.drawVertexes(vertexes.buffer)
+        program.drawVertexes(vertexes.getBuffer())
 
         afterDraw()
     }
